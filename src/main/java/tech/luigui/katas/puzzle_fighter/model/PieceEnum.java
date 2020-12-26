@@ -2,6 +2,7 @@ package tech.luigui.katas.puzzle_fighter.model;
 
 public enum PieceEnum {
 
+	EMPTY(" "),
 	RED("R"), 
 	BLUE("B"), 
 	GREEN("G"), 
@@ -24,6 +25,8 @@ public enum PieceEnum {
 
 	public static PieceEnum getByRawPiece(String rawPiece) {
 		switch(rawPiece) {
+		case " ":
+			return PieceEnum.EMPTY;
 		case "R":
 			return PieceEnum.RED;
 		case "B":
