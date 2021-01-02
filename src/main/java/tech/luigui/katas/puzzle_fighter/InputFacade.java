@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import tech.luigui.katas.puzzle_fighter.model.Input;
+
 public final class InputFacade {
 	private final List<Input> inputList;
 
