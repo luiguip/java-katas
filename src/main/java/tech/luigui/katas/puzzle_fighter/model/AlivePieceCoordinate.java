@@ -30,8 +30,8 @@ public class AlivePieceCoordinate {
 		return new AlivePieceCoordinate(this, 0, -1);
 	}
 
-	public AlivePieceCoordinate moveLeft(AlivePieceCoordinate alivePieceCoordinate) {
-		return new AlivePieceCoordinate(alivePieceCoordinate, -1, 0);
+	public AlivePieceCoordinate moveLeft() {
+		return new AlivePieceCoordinate(this, -1, 0);
 	}
 
 	public AlivePieceCoordinate moveRight(AlivePieceCoordinate alivePieceCoordinate) {
