@@ -1,12 +1,13 @@
 package tech.luigui.katas.puzzle_fighter;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import tech.luigui.katas.puzzle_fighter.model.Input;
 
 public class InputFacadeTests {
 	
