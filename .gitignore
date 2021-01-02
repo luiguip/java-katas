@@ -35,3 +35,6 @@ buildNumber.properties
 
 .settings/
 .project
+.idea/
+*.iml
+.classpath
