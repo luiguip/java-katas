@@ -1,38 +1,34 @@
 package tech.luigui.katas.puzzle_fighter.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class GameBoard {
+public final class GameBoard {
 
-	private final GameBoardConstants gameBoardConstants; 
 	private final PieceEnum[][] pieceEnumMatrix;
-	
-	public GameBoard(){
-		gameBoardConstants = new GameBoardConstants();
-		pieceEnumMatrix = initateSpaceListList(gameBoardConstants.getNumberOfColumns(), gameBoardConstants.getNumberOfRows());
-	}
-	
-//	GameBoard(PieceEnum[][] pieceEnumMatrixPreviousTurn) {
-//		
-//	}
+	private final AlivePieceCoordinate alivePieceCoordinate;
+	private final List<PieceEnum> alivePieceEnumList;
 
-	private PieceEnum[][] initateSpaceListList(int columns, int rows) {
-		return IntStream.range(0, rows)
-						.mapToObj(i -> initiateRow(columns))
-						.toArray(PieceEnum[][]::new);
+	public GameBoard(GameBoard gameBoard) {
+		this(gameBoard.getPieceEnumMatrix(), gameBoard.getAlivePieceEnumList(), gameBoard.getAlivePieceCoordinate());
 	}
-	
-	private PieceEnum[] initiateRow(int columns) {
-		return IntStream.range(0, columns)
-						.mapToObj(i -> PieceEnum.EMPTY)
-						.toArray(PieceEnum[]::new);
+
+	public GameBoard(PieceEnum[][] pieceEnumMatrix, List<PieceEnum> pieceEnumList, AlivePieceCoordinate alivePieceCoordinate) {
+		this.pieceEnumMatrix = pieceEnumMatrix;
+		this.alivePieceEnumList = pieceEnumList;
+		this.alivePieceCoordinate = alivePieceCoordinate;
 	}
 
 	public PieceEnum[][] getPieceEnumMatrix() {
 		return pieceEnumMatrix;
+	}
+
+	public AlivePieceCoordinate getAlivePieceCoordinate() {
+		return alivePieceCoordinate;
+	}
+
+	public List<PieceEnum> getAlivePieceEnumList() {
+		return alivePieceEnumList;
 	}
 }
