@@ -1,18 +1,15 @@
-package tech.luigui.katas.puzzle_fighter;
+package tech.luigui.katas.puzzle_fighter.model;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import tech.luigui.katas.puzzle_fighter.model.MovementEnum;
-import tech.luigui.katas.puzzle_fighter.model.PieceEnum;
 
 public final class Input {
 
 	private final List<PieceEnum> pieces;
 	private final List<MovementEnum> movements;
 	
-	Input(String rawPieces, String rawMovements) {
+	public Input(String rawPieces, String rawMovements) {
 		pieces = generatePiecesFromString(rawPieces);
 		movements = generateMovementsFromString(rawMovements);
 	}
