@@ -34,8 +34,8 @@ public class AlivePieceCoordinate {
 		return new AlivePieceCoordinate(this, -1, 0);
 	}
 
-	public AlivePieceCoordinate moveRight(AlivePieceCoordinate alivePieceCoordinate) {
-		return new AlivePieceCoordinate(alivePieceCoordinate, 1, 0);
+	public AlivePieceCoordinate moveRight() {
+		return new AlivePieceCoordinate(this, 1, 0);
 	}
 
 //	public AlivePieceCoordinate rotateCounterClockwise(AlivePieceCoordinate alivePieceCoordinate) {

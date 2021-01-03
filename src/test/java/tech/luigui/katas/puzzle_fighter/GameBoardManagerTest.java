@@ -15,6 +15,8 @@ public class GameBoardManagerTest {
             "      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n   R  \n   B  ";
     private final String ONE_MOVE_LEFT =
             "  R   \n  B   \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
+    private final String ONE_MOVE_RIGHT =
+            "    R \n    B \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
 
     @Test
     void noMovesLeftTest() {
@@ -28,6 +30,13 @@ public class GameBoardManagerTest {
         GameBoard gameBoard = testSetup("RB", "L");
         GameBoard finalGameBoard = gameManager.moveLeft(gameBoard);
         assertGameOutput(ONE_MOVE_LEFT, finalGameBoard);
+    }
+
+    @Test
+    void OneRightTest(){
+        GameBoard gameBoard = testSetup("RB", "R");
+        GameBoard finalGameBoard = gameManager.moveRight(gameBoard);
+        assertGameOutput(ONE_MOVE_RIGHT, finalGameBoard);
     }
 
     private GameBoard testSetup(String rawPieces) {

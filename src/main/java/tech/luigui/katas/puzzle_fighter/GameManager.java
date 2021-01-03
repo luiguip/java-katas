@@ -4,6 +4,7 @@ import java.util.List;
 
 import tech.luigui.katas.puzzle_fighter.model.AlivePieceCoordinate;
 import tech.luigui.katas.puzzle_fighter.model.GameBoard;
+import tech.luigui.katas.puzzle_fighter.model.GameBoardConstants;
 import tech.luigui.katas.puzzle_fighter.model.PieceEnum;
 
 public final class GameManager {
@@ -27,6 +28,25 @@ public final class GameManager {
 		PieceEnum pieceEnumAtLeft0 = gameBoard.getPieceEnumMatrix()[alivePieceCoordinate.getY0()][alivePieceCoordinate.getX0() - 1];
 		PieceEnum pieceEnumAtLeft1 = gameBoard.getPieceEnumMatrix()[alivePieceCoordinate.getY1()][alivePieceCoordinate.getX1() - 1];
 		return (pieceEnumAtLeft0 == PieceEnum.EMPTY || pieceEnumAtLeft1 == PieceEnum.EMPTY);
+	}
+	public GameBoard moveRight(GameBoard gameBoard) {
+		GameBoard afterMoveGameBoard = new GameBoard(gameBoard);
+		if(hasEmptyPieceAtRight(gameBoard)){
+			AlivePieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate().moveRight();
+			afterMoveGameBoard =  gameBoardManager.update(gameBoard, alivePieceCoordinate);
+		}
+		return afterMoveGameBoard;
+	}
+
+	public boolean hasEmptyPieceAtRight(GameBoard gameBoard) {
+		AlivePieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate();
+		if(alivePieceCoordinate.getX0() == GameBoardConstants.getLastColumn() ||
+				alivePieceCoordinate.getX1() == GameBoardConstants.getLastColumn()) {
+			return false;
+		}
+		PieceEnum pieceEnumAtRight0 = gameBoard.getPieceEnumMatrix()[alivePieceCoordinate.getY0()][alivePieceCoordinate.getX0() + 1];
+		PieceEnum pieceEnumAtRight1 = gameBoard.getPieceEnumMatrix()[alivePieceCoordinate.getY1()][alivePieceCoordinate.getX1() + 1];
+		return (pieceEnumAtRight0 == PieceEnum.EMPTY || pieceEnumAtRight1 == PieceEnum.EMPTY);
 	}
 
 	public GameBoard noMovesLeft(GameBoard gameBoard) {
