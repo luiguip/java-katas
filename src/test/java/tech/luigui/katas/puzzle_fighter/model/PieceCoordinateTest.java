@@ -17,7 +17,7 @@ public class PieceCoordinateTest {
 
     @Test
     void fallPieceCoordinateTest() {
-        PieceCoordinate alivePieceCoordinate = new PieceCoordinate().fall();
+        PieceCoordinate alivePieceCoordinate = new PieceCoordinate().down();
         assertEquals(GameBoardConstants.getBlockFallColumn(), alivePieceCoordinate.getX0());
         assertEquals(GameBoardConstants.getBlockFallColumn(), alivePieceCoordinate.getX1());
         assertEquals(GameBoardConstants.getLastRow()-1, alivePieceCoordinate.getY0());

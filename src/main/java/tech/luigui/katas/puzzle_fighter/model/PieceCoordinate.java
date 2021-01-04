@@ -26,15 +26,15 @@ public class PieceCoordinate {
 		y1 = alivePieceCoordinate.getY1() + verticalMove;
 	}
 
-	public PieceCoordinate fall() {
+	public PieceCoordinate down() {
 		return new PieceCoordinate(this, 0, -1);
 	}
 
-	public PieceCoordinate moveLeft() {
+	public PieceCoordinate left() {
 		return new PieceCoordinate(this, -1, 0);
 	}
 
-	public PieceCoordinate moveRight() {
+	public PieceCoordinate right() {
 		return new PieceCoordinate(this, 1, 0);
 	}
 

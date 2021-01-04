@@ -32,7 +32,7 @@ class OutputFacadeTests {
 	void fallOneBlockStateBoard() {
 		Input input = new Input("RB", "");
 		GameBoard initialGameBoard = gameBoardManager.createInitialBoard(input.getPieces());
-		PieceCoordinate alivePieceCoordinate = initialGameBoard.getAlivePieceCoordinate().fall();
+		PieceCoordinate alivePieceCoordinate = initialGameBoard.getAlivePieceCoordinate().down();
 		GameBoard gameBoard = gameBoardManager.update(initialGameBoard,alivePieceCoordinate);
 		OutputFacade outputFacade = new OutputFacade(gameBoard);
 		assertEquals(ONE_FALL_STATE, outputFacade.getGameOutput());
