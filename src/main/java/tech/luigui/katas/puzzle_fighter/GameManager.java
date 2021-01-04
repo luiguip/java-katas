@@ -25,9 +25,9 @@ public final class GameManager {
 		if(alivePieceCoordinate.getX0() == 0 || alivePieceCoordinate.getX1() == 0) {
 			return false;
 		}
-		PieceEnum pieceEnumAtLeft0 = gameBoard.getPieceEnumMatrix()[alivePieceCoordinate.getY0()][alivePieceCoordinate.getX0() - 1];
-		PieceEnum pieceEnumAtLeft1 = gameBoard.getPieceEnumMatrix()[alivePieceCoordinate.getY1()][alivePieceCoordinate.getX1() - 1];
-		return (pieceEnumAtLeft0 == PieceEnum.EMPTY || pieceEnumAtLeft1 == PieceEnum.EMPTY);
+		AlivePieceCoordinate coordinateAtLeft = alivePieceCoordinate.moveLeft();
+		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateAtLeft);
+		return isPieceEnumEmpty(pieceEnumArray);
 	}
 	public GameBoard moveRight(GameBoard gameBoard) {
 		GameBoard afterMoveGameBoard = new GameBoard(gameBoard);
@@ -44,9 +44,9 @@ public final class GameManager {
 				alivePieceCoordinate.getX1() == GameBoardConstants.getLastColumn()) {
 			return false;
 		}
-		PieceEnum pieceEnumAtRight0 = gameBoard.getPieceEnumMatrix()[alivePieceCoordinate.getY0()][alivePieceCoordinate.getX0() + 1];
-		PieceEnum pieceEnumAtRight1 = gameBoard.getPieceEnumMatrix()[alivePieceCoordinate.getY1()][alivePieceCoordinate.getX1() + 1];
-		return (pieceEnumAtRight0 == PieceEnum.EMPTY || pieceEnumAtRight1 == PieceEnum.EMPTY);
+		AlivePieceCoordinate coordinateAtRight = alivePieceCoordinate.moveLeft();
+		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateAtRight);
+		return isPieceEnumEmpty(pieceEnumArray);
 	}
 
 	public GameBoard noMovesLeft(GameBoard gameBoard) {
@@ -62,12 +62,25 @@ public final class GameManager {
 		if(alivePieceCoordinate.getY0() == 0 || alivePieceCoordinate.getY1() == 0) {
 			return false;
 		}
-		PieceEnum pieceEnumBelow0 = gameBoard.getPieceEnumMatrix()[alivePieceCoordinate.getY0() - 1][alivePieceCoordinate.getX0()];
-		PieceEnum pieceEnumBelow1 = gameBoard.getPieceEnumMatrix()[alivePieceCoordinate.getY1() - 1][alivePieceCoordinate.getX1()];
-		if(pieceEnumBelow0 == PieceEnum.EMPTY || pieceEnumBelow1 == PieceEnum.EMPTY) {
-			return true;
-		}
-		return false;
+		AlivePieceCoordinate coordinateBelow = alivePieceCoordinate.fall();
+		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateBelow);
+		return isPieceEnumEmpty(pieceEnumArray);
+	}
+
+	private PieceEnum[] getPieceEnumFromPieceMatrix(GameBoard gameBoard, AlivePieceCoordinate targetCoordinate) {
+		PieceEnum[][] pieceEnumMatrix = gameBoard.getPieceEnumMatrix();
+		return getPieceEnumFromPieceMatrix(pieceEnumMatrix, targetCoordinate);
+	}
+
+	private PieceEnum[] getPieceEnumFromPieceMatrix(PieceEnum[][] pieceEnumMatrix, AlivePieceCoordinate alivePieceCoordinate) {
+		PieceEnum[] pieceEnumArray = new PieceEnum[2];
+		pieceEnumArray[0] = pieceEnumMatrix[alivePieceCoordinate.getY0()][alivePieceCoordinate.getX0()];
+		pieceEnumArray[1] = pieceEnumMatrix[alivePieceCoordinate.getY1()][alivePieceCoordinate.getX1()];
+		return pieceEnumArray;
+	}
+
+	private boolean isPieceEnumEmpty(PieceEnum[] pieceEnumArray) {
+		return (pieceEnumArray[0] == PieceEnum.EMPTY || pieceEnumArray[1] == PieceEnum.EMPTY);
 	}
 
 	private GameBoard fall(GameBoard gameBoard) {
