@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AlivePieceCoordinateTest {
+public class PieceCoordinateTest {
 
     @Test
     void initialPieceCoordinateTest() {
-        AlivePieceCoordinate alivePieceCoordinate = new AlivePieceCoordinate();
+        PieceCoordinate alivePieceCoordinate = new PieceCoordinate();
         assertEquals(GameBoardConstants.getBlockFallColumn(), alivePieceCoordinate.getX0());
         assertEquals(GameBoardConstants.getBlockFallColumn(), alivePieceCoordinate.getX1());
         assertEquals(GameBoardConstants.getLastRow(), alivePieceCoordinate.getY0());
@@ -17,7 +17,7 @@ public class AlivePieceCoordinateTest {
 
     @Test
     void fallPieceCoordinateTest() {
-        AlivePieceCoordinate alivePieceCoordinate = new AlivePieceCoordinate().fall();
+        PieceCoordinate alivePieceCoordinate = new PieceCoordinate().fall();
         assertEquals(GameBoardConstants.getBlockFallColumn(), alivePieceCoordinate.getX0());
         assertEquals(GameBoardConstants.getBlockFallColumn(), alivePieceCoordinate.getX1());
         assertEquals(GameBoardConstants.getLastRow()-1, alivePieceCoordinate.getY0());

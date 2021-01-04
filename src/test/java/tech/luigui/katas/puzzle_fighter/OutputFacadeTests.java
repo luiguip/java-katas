@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import tech.luigui.katas.puzzle_fighter.model.AlivePieceCoordinate;
+import tech.luigui.katas.puzzle_fighter.model.PieceCoordinate;
 import tech.luigui.katas.puzzle_fighter.model.GameBoard;
 import tech.luigui.katas.puzzle_fighter.model.Input;
 
@@ -32,7 +32,7 @@ class OutputFacadeTests {
 	void fallOneBlockStateBoard() {
 		Input input = new Input("RB", "");
 		GameBoard initialGameBoard = gameBoardManager.createInitialBoard(input.getPieces());
-		AlivePieceCoordinate alivePieceCoordinate = initialGameBoard.getAlivePieceCoordinate().fall();
+		PieceCoordinate alivePieceCoordinate = initialGameBoard.getAlivePieceCoordinate().fall();
 		GameBoard gameBoard = gameBoardManager.update(initialGameBoard,alivePieceCoordinate);
 		OutputFacade outputFacade = new OutputFacade(gameBoard);
 		assertEquals(ONE_FALL_STATE, outputFacade.getGameOutput());

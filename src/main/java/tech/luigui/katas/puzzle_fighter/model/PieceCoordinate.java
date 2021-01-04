@@ -1,6 +1,6 @@
 package tech.luigui.katas.puzzle_fighter.model;
 
-public class AlivePieceCoordinate {
+public class PieceCoordinate {
 
 	GameBoardConstants gameBoardConstants = new GameBoardConstants();
 	private int x0;
@@ -10,7 +10,7 @@ public class AlivePieceCoordinate {
 	private boolean horizontal;
 
 
-	public AlivePieceCoordinate() {
+	public PieceCoordinate() {
 		horizontal = false;
 		x0 = gameBoardConstants.getBlockFallColumn();
 		x1 = x0;
@@ -18,7 +18,7 @@ public class AlivePieceCoordinate {
 		y1 = y0-1;
 	}
 
-	private AlivePieceCoordinate(AlivePieceCoordinate alivePieceCoordinate, int horizontalMove, int verticalMove) {
+	private PieceCoordinate(PieceCoordinate alivePieceCoordinate, int horizontalMove, int verticalMove) {
 		horizontal = alivePieceCoordinate.isHorizontal();
 		x0 = alivePieceCoordinate.getX0() + horizontalMove;
 		x1 = alivePieceCoordinate.getX1() + horizontalMove;
@@ -26,16 +26,16 @@ public class AlivePieceCoordinate {
 		y1 = alivePieceCoordinate.getY1() + verticalMove;
 	}
 
-	public AlivePieceCoordinate fall() {
-		return new AlivePieceCoordinate(this, 0, -1);
+	public PieceCoordinate fall() {
+		return new PieceCoordinate(this, 0, -1);
 	}
 
-	public AlivePieceCoordinate moveLeft() {
-		return new AlivePieceCoordinate(this, -1, 0);
+	public PieceCoordinate moveLeft() {
+		return new PieceCoordinate(this, -1, 0);
 	}
 
-	public AlivePieceCoordinate moveRight() {
-		return new AlivePieceCoordinate(this, 1, 0);
+	public PieceCoordinate moveRight() {
+		return new PieceCoordinate(this, 1, 0);
 	}
 
 //	public AlivePieceCoordinate rotateCounterClockwise(AlivePieceCoordinate alivePieceCoordinate) {
