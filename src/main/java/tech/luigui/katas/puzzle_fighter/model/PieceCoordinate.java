@@ -38,9 +38,82 @@ public class PieceCoordinate {
 		return new PieceCoordinate(this, 1, 0);
 	}
 
-//	public AlivePieceCoordinate rotateCounterClockwise(AlivePieceCoordinate alivePieceCoordinate) {
-//		return new AlivePieceCoordinate(alivePieceCoordinate, 1, 0);
-//	}
+	public PieceCoordinate rotateCounterClockwise() {
+		if(isAtLeftAndHorizontallyAligned()) {
+		  rightDown();
+		} else if(isBelowAndVerticallyAligned()) {
+		  rightUp();
+		} else if(isAtRightAndHorizontallyAligned()) {
+		  leftUp();
+		} else if(isOnAndVerticaallyAligned()) {
+		  leftDown();
+		} else {
+			throw new IllegalStateException("Invalid Piece locations");
+		}
+		return this;
+	}
+
+	private boolean isAtLeftAndHorizontallyAligned() {
+		return isAtLeft() && isHorizontallyAligned();
+	}
+
+	private boolean isAtRightAndHorizontallyAligned() {
+		return isAtRight() && isHorizontallyAligned();
+	}
+
+	private boolean isBelowAndVerticallyAligned() {
+		return isBelow() && isVerticallyAligned();
+	}
+
+	private boolean isOnAndVerticaallyAligned() {
+		return isOn() && isVerticallyAligned();
+	}
+	private boolean isVerticallyAligned() {
+		return x0 == x1;
+	}
+
+	private boolean isHorizontallyAligned() {
+		return y0 == y1;
+	}
+
+	private boolean isAtLeft() {
+		return x1 < x0;
+	}
+
+	private  boolean isAtRight() {
+		return x1 > x0;
+	}
+
+	private boolean isBelow() {
+		return y1 < y0;
+	}
+
+	private boolean isOn() {
+		return y1 > y0;
+	}
+	private PieceCoordinate leftUp() {
+		x1--;
+		y1++;
+		return this;
+	}
+
+	private PieceCoordinate rightUp() {
+		x1++;
+		y1++;
+		return this;
+	}
+
+	private PieceCoordinate leftDown() {
+		x1--;
+		y1--;
+		return this;
+	}
+
+	private PieceCoordinate rightDown() {
+		x1++;
+		y1--;
+		return this;
+	}
 
 	public boolean isHorizontal() {
 		return horizontal;
