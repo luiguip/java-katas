@@ -7,6 +7,7 @@ import tech.luigui.katas.puzzle_fighter.model.PieceEnum;
 
 public final class GameManager {
 
+  private final GameBoardConstants gameBoardConstants = new GameBoardConstants();
 	private final GameBoardManager gameBoardManager = new GameBoardManager();
 
 	public GameBoard moveLeft(GameBoard gameBoard) {
@@ -38,8 +39,8 @@ public final class GameManager {
 
 	public boolean hasEmptyPieceAtRight(GameBoard gameBoard) {
 		PieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate();
-		if(alivePieceCoordinate.getX0() == GameBoardConstants.getLastColumn() ||
-				alivePieceCoordinate.getX1() == GameBoardConstants.getLastColumn()) {
+		if(alivePieceCoordinate.getX0() == gameBoardConstants.getLastColumn() ||
+				alivePieceCoordinate.getX1() == gameBoardConstants.getLastColumn()) {
 			return false;
 		}
 		PieceCoordinate coordinateAtRight = alivePieceCoordinate.left();

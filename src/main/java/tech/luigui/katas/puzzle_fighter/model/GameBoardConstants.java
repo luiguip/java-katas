@@ -1,26 +1,26 @@
 package tech.luigui.katas.puzzle_fighter.model;
 
-public class GameBoardConstants {
+public final class GameBoardConstants {
 
-	private static final int numberOfRows = 12;
-	private static final int numberOfColumns = 6;
-	private static final int blockFallColumn = 3;
-	private static final int lastRow = numberOfRows-1;
-	private static final int lastColumn = numberOfColumns-1;
+	private final int numberOfRows = 12;
+	private final int numberOfColumns = 6;
+	private final int blockFallColumn = 3;
+	private final int lastRow = numberOfRows-1;
+	private final int lastColumn = numberOfColumns-1;
 
-	public static int getNumberOfRows() {
+	public int getNumberOfRows() {
 		return numberOfRows;
 	}
-	public static int getNumberOfColumns() {
+	public int getNumberOfColumns() {
 		return numberOfColumns;
 	}
-	public static int getBlockFallColumn() {
+	public int getBlockFallColumn() {
 		return blockFallColumn;
 	}
-	public static int getLastRow() {
+	public int getLastRow() {
 		return lastRow;
 	}
-    public static int getLastColumn() {
+	public  int getLastColumn() {
         return lastColumn;
     }
 }

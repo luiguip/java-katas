@@ -11,9 +11,11 @@ import java.util.stream.IntStream;
 
 public class GameBoardManager {
 
+    private final GameBoardConstants gameBoardConstants = new GameBoardConstants();
+
     public GameBoard createInitialBoard(List<PieceEnum> pieceEnumList) {
-        int column = GameBoardConstants.getBlockFallColumn();
-        int row = GameBoardConstants.getNumberOfRows() - 1;
+        int column = gameBoardConstants.getBlockFallColumn();
+        int row = gameBoardConstants.getNumberOfRows() - 1;
         PieceCoordinate alivePieceCoordinate = new PieceCoordinate();
         PieceEnum[][] pieceEnumMatrix = initiateInitialPieceEnumMatrix(pieceEnumList, column, row);
         return new GameBoard(pieceEnumMatrix, pieceEnumList, alivePieceCoordinate);
@@ -40,7 +42,7 @@ public class GameBoardManager {
     }
 
     public PieceEnum[][] initiateInitialPieceEnumMatrix(List<PieceEnum> pieceEnumList, int column, int row) {
-        PieceEnum[][] pieceEnumMatrix = initateSpaceListList(GameBoardConstants.getNumberOfColumns(), GameBoardConstants.getNumberOfRows());
+        PieceEnum[][] pieceEnumMatrix = initateSpaceListList(gameBoardConstants.getNumberOfColumns(), gameBoardConstants.getNumberOfRows());
         pieceEnumMatrix[row][column] = pieceEnumList.get(0);
         pieceEnumMatrix[row - 1][column] = pieceEnumList.get(1);
         return pieceEnumMatrix;
