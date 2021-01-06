@@ -48,6 +48,15 @@ public final class GameManager {
 		return isPieceEnumEmpty(pieceEnumArray);
 	}
 
+	public GameBoard rotateCounterClockwise(GameBoard gameBoard) {
+		GameBoard afterMoveGameBoard = new GameBoard(gameBoard);
+		if(hasEmptyPieceAtCounterClockDirection(gameBoard)) {
+			PieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate().rotateCounterClockwise();
+			afterMoveGameBoard = gameBoardManager.update(gameBoard, alivePieceCoordinate);
+		}
+		return afterMoveGameBoard;
+	}
+
 	public GameBoard noMovesLeft(GameBoard gameBoard) {
 		GameBoard finalTurnGameBoard = new GameBoard(gameBoard);
 		while(hasEmptyPieceEnumBelow(finalTurnGameBoard)) {
@@ -63,6 +72,33 @@ public final class GameManager {
 		}
 		PieceCoordinate coordinateBelow = alivePieceCoordinate.down();
 		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateBelow);
+		return isPieceEnumEmpty(pieceEnumArray);
+	}
+
+	private boolean hasEmptyPieceAtCounterClockDirection(GameBoard gameBoard) {
+		PieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate();
+		switch (alivePieceCoordinate.getPositionEnum()) {
+			case UP:
+				return hasEmptyPieceAtLeft(gameBoard);
+			case LEFT:
+				return hasEmptyPieceEnumBelow(gameBoard);
+			case DOWN:
+				return hasEmptyPieceAtRight(gameBoard);
+			case RIGHT:
+				return hasEmptyPieceAtTop(gameBoard);
+			default:
+				throw new IllegalStateException();
+		}
+	}
+
+	private boolean hasEmptyPieceAtTop(GameBoard gameBoard) {
+		PieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate();
+		if(alivePieceCoordinate.getX0() == gameBoardConstants.getLastRow() ||
+			alivePieceCoordinate.getX1() == gameBoardConstants.getLastRow()) {
+			return false;
+		}
+		PieceCoordinate coordinateAtTop = alivePieceCoordinate.up();
+		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateAtTop);
 		return isPieceEnumEmpty(pieceEnumArray);
 	}
 

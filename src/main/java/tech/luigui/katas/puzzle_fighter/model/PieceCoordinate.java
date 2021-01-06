@@ -34,6 +34,10 @@ public class PieceCoordinate {
 		return new PieceCoordinate(this, -1, 0);
 	}
 
+	public  PieceCoordinate up() {
+		return new PieceCoordinate(this, 0, 1);
+	}
+
 	public PieceCoordinate right() {
 		return new PieceCoordinate(this, 1, 0);
 	}
