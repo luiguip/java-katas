@@ -7,11 +7,11 @@ public class PieceCoordinate {
 	private int x1;
 	private int y0;
 	private int y1;
-	private boolean horizontal;
+	private PositionEnum positionEnum;
 
 
 	public PieceCoordinate() {
-		horizontal = false;
+		positionEnum = PositionEnum.UP;
 		x0 = gameBoardConstants.getBlockFallColumn();
 		x1 = x0;
 		y0 = gameBoardConstants.getLastRow();
@@ -19,7 +19,7 @@ public class PieceCoordinate {
 	}
 
 	private PieceCoordinate(PieceCoordinate alivePieceCoordinate, int horizontalMove, int verticalMove) {
-		horizontal = alivePieceCoordinate.isHorizontal();
+		positionEnum = alivePieceCoordinate.getPositionEnum();
 		x0 = alivePieceCoordinate.getX0() + horizontalMove;
 		x1 = alivePieceCoordinate.getX1() + horizontalMove;
 		y0 = alivePieceCoordinate.getY0() + verticalMove;
@@ -41,12 +41,16 @@ public class PieceCoordinate {
 	public PieceCoordinate rotateCounterClockwise() {
 		if(isAtLeftAndHorizontallyAligned()) {
 		  rightDown();
+		  positionEnum = PositionEnum.UP;
 		} else if(isBelowAndVerticallyAligned()) {
 		  rightUp();
+		  positionEnum = PositionEnum.LEFT;
 		} else if(isAtRightAndHorizontallyAligned()) {
 		  leftUp();
+		  positionEnum = PositionEnum.DOWN;
 		} else if(isOnAndVerticaallyAligned()) {
 		  leftDown();
+		  positionEnum = PositionEnum.RIGHT;
 		} else {
 			throw new IllegalStateException("Invalid Piece locations");
 		}
@@ -68,6 +72,7 @@ public class PieceCoordinate {
 	private boolean isOnAndVerticaallyAligned() {
 		return isOn() && isVerticallyAligned();
 	}
+
 	private boolean isVerticallyAligned() {
 		return x0 == x1;
 	}
@@ -91,6 +96,7 @@ public class PieceCoordinate {
 	private boolean isOn() {
 		return y1 > y0;
 	}
+
 	private PieceCoordinate leftUp() {
 		x1--;
 		y1++;
@@ -115,12 +121,8 @@ public class PieceCoordinate {
 		return this;
 	}
 
-	public boolean isHorizontal() {
-		return horizontal;
-	}
-	
-	public boolean isVertical() {
-		return !horizontal;
+	public PositionEnum getPositionEnum() {
+		return positionEnum;
 	}
 
 	public int getX0() {
