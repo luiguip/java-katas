@@ -43,22 +43,23 @@ public class PieceCoordinate {
 	}
 
 	public PieceCoordinate rotateCounterClockwise() {
+		PieceCoordinate pieceCoordinate = new PieceCoordinate(this, 0, 0);
 		if(isAtLeftAndHorizontallyAligned()) {
-		  rightDown();
-		  positionEnum = PositionEnum.UP;
+		  pieceCoordinate = rightDown(pieceCoordinate);
+		  pieceCoordinate.setPositionEnum(PositionEnum.UP);
 		} else if(isBelowAndVerticallyAligned()) {
-		  rightUp();
-		  positionEnum = PositionEnum.LEFT;
+		  pieceCoordinate = rightUp(pieceCoordinate);
+		  pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.LEFT);
 		} else if(isAtRightAndHorizontallyAligned()) {
-		  leftUp();
-		  positionEnum = PositionEnum.DOWN;
+		  pieceCoordinate = leftUp(pieceCoordinate);
+		  pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.DOWN);
 		} else if(isOnAndVerticaallyAligned()) {
-		  leftDown();
-		  positionEnum = PositionEnum.RIGHT;
+		  pieceCoordinate = leftDown(pieceCoordinate);
+		  pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.RIGHT);
 		} else {
 			throw new IllegalStateException("Invalid Piece locations");
 		}
-		return this;
+		return pieceCoordinate;
 	}
 
 	private boolean isAtLeftAndHorizontallyAligned() {
@@ -101,28 +102,32 @@ public class PieceCoordinate {
 		return y1 > y0;
 	}
 
-	private PieceCoordinate leftUp() {
-		x1--;
-		y1++;
-		return this;
+	private PieceCoordinate leftUp(PieceCoordinate pieceCoordinate) {
+		pieceCoordinate.setX1(x1-1);
+		pieceCoordinate.setY1(y1+1);
+		return pieceCoordinate;
 	}
 
-	private PieceCoordinate rightUp() {
-		x1++;
-		y1++;
-		return this;
+	private PieceCoordinate rightUp(PieceCoordinate pieceCoordinate) {
+		pieceCoordinate.setX1(x1+1);
+		pieceCoordinate.setY1(y1+1);
+		return pieceCoordinate;
 	}
 
-	private PieceCoordinate leftDown() {
-		x1--;
-		y1--;
-		return this;
+	private PieceCoordinate leftDown(PieceCoordinate pieceCoordinate) {
+		pieceCoordinate.setX1(x1-1);
+		pieceCoordinate.setY1(y1-1);
+		return pieceCoordinate;
 	}
 
-	private PieceCoordinate rightDown() {
-		x1++;
-		y1--;
-		return this;
+	private PieceCoordinate rightDown(PieceCoordinate pieceCoordinate) {
+		pieceCoordinate.setX1(x1+1);
+		pieceCoordinate.setY1(y1-1);
+		return pieceCoordinate;
+	}
+
+	public void setPositionEnum(PositionEnum positionEnum) {
+		this.positionEnum = positionEnum;
 	}
 
 	public PositionEnum getPositionEnum() {

@@ -6,7 +6,7 @@ import tech.luigui.katas.puzzle_fighter.model.Input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GameBoardManagerTest {
+public class GameManagerTest {
 
     GameBoardManager gameBoardManager = new GameBoardManager();
     GameManager gameManager = new GameManager();
@@ -17,6 +17,8 @@ public class GameBoardManagerTest {
             "  R   \n  B   \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
     private final String ONE_MOVE_RIGHT =
             "    R \n    B \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
+    private final String ONE_COUNTERCLOCK_ROTATION =
+            "   RB \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
 
     @Test
     void noMovesLeftTest() {
@@ -37,6 +39,13 @@ public class GameBoardManagerTest {
         GameBoard gameBoard = testSetup("RB", "R");
         GameBoard finalGameBoard = gameManager.moveRight(gameBoard);
         assertGameOutput(ONE_MOVE_RIGHT, finalGameBoard);
+    }
+
+    @Test
+    void oneCounterClockTest() {
+        GameBoard gameBoard = testSetup("RB", "A");
+        GameBoard finalGameBoard = gameManager.rotateCounterClockwise(gameBoard);
+        assertGameOutput(ONE_COUNTERCLOCK_ROTATION, finalGameBoard);
     }
 
     private GameBoard testSetup(String rawPieces) {
