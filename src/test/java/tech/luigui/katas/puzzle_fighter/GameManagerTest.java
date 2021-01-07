@@ -19,6 +19,8 @@ public class GameManagerTest {
             "    R \n    B \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
     private final String ONE_COUNTERCLOCK_ROTATION =
             "   RB \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
+    private final String ONE_CLOCK_ROTATION =
+      "  BR  \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
 
     @Test
     void noMovesLeftTest() {
@@ -46,6 +48,13 @@ public class GameManagerTest {
         GameBoard gameBoard = testSetup("RB", "A");
         GameBoard finalGameBoard = gameManager.rotateCounterClockwise(gameBoard);
         assertGameOutput(ONE_COUNTERCLOCK_ROTATION, finalGameBoard);
+    }
+
+    @Test
+    void oneClockTest() {
+        GameBoard gameBoard = testSetup("RB", "B");
+        GameBoard finalGameBoard = gameManager.rotateClockwise(gameBoard);
+        assertGameOutput(ONE_CLOCK_ROTATION, finalGameBoard);
     }
 
     private GameBoard testSetup(String rawPieces) {

@@ -46,16 +46,36 @@ public class PieceCoordinate {
 		PieceCoordinate pieceCoordinate = new PieceCoordinate(this, 0, 0);
 		if(isAtLeftAndHorizontallyAligned()) {
 		  pieceCoordinate = rightDown(pieceCoordinate);
-		  pieceCoordinate.setPositionEnum(PositionEnum.UP);
+		  pieceCoordinate.setPositionEnum(PositionEnum.DOWN);
 		} else if(isBelowAndVerticallyAligned()) {
 		  pieceCoordinate = rightUp(pieceCoordinate);
-		  pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.LEFT);
+		  pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.RIGHT);
 		} else if(isAtRightAndHorizontallyAligned()) {
 		  pieceCoordinate = leftUp(pieceCoordinate);
-		  pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.DOWN);
+		  pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.UP);
 		} else if(isOnAndVerticaallyAligned()) {
 		  pieceCoordinate = leftDown(pieceCoordinate);
-		  pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.RIGHT);
+		  pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.LEFT);
+		} else {
+			throw new IllegalStateException("Invalid Piece locations");
+		}
+		return pieceCoordinate;
+	}
+
+	public PieceCoordinate rotateClockwise() {
+		PieceCoordinate pieceCoordinate = new PieceCoordinate(this, 0, 0);
+		if(isAtLeftAndHorizontallyAligned()) {
+			pieceCoordinate = rightUp(pieceCoordinate);
+			pieceCoordinate.setPositionEnum(PositionEnum.UP);
+		} else if(isBelowAndVerticallyAligned()) {
+			pieceCoordinate = leftUp(pieceCoordinate);
+			pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.LEFT);
+		} else if(isAtRightAndHorizontallyAligned()) {
+			pieceCoordinate = leftDown(pieceCoordinate);
+			pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.DOWN);
+		} else if(isOnAndVerticaallyAligned()) {
+			pieceCoordinate = rightDown(pieceCoordinate);
+			pieceCoordinate.setPositionEnum(positionEnum = PositionEnum.RIGHT);
 		} else {
 			throw new IllegalStateException("Invalid Piece locations");
 		}
@@ -165,4 +185,5 @@ public class PieceCoordinate {
 	public void setY1(int y1) {
 		this.y1 = y1;
 	}
+
 }
