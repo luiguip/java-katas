@@ -18,12 +18,12 @@ class OutputFacadeTests {
 			"      \n   R  \n   B  \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
 	private final String NO_MOVE =
 			"      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n   R  \n   B  ";
-	private final GameBoardManager gameBoardManager = new GameBoardManager();
+	private final GameManager gameManager = new GameManager();
 
 	@Test
 	void initialStateBoard() {
 		Input input = new Input("RB", "");
-		GameBoard gameBoard = gameBoardManager.createInitialBoard(input.getPieces());
+		GameBoard gameBoard = gameManager.initGameBoard(input.getPieces());
 		OutputFacade outputFacade = new OutputFacade(gameBoard);
 		assertEquals(INITIAL_STATE, outputFacade.getGameOutput());
 	}
@@ -31,9 +31,8 @@ class OutputFacadeTests {
 	@Test
 	void fallOneBlockStateBoard() {
 		Input input = new Input("RB", "");
-		GameBoard initialGameBoard = gameBoardManager.createInitialBoard(input.getPieces());
-		PieceCoordinate alivePieceCoordinate = initialGameBoard.getAlivePieceCoordinate().down();
-		GameBoard gameBoard = gameBoardManager.update(initialGameBoard,alivePieceCoordinate);
+		GameBoard initialGameBoard = gameManager.initGameBoard(input.getPieces());
+		GameBoard gameBoard = gameManager.fall(initialGameBoard);
 		OutputFacade outputFacade = new OutputFacade(gameBoard);
 		assertEquals(ONE_FALL_STATE, outputFacade.getGameOutput());
 	}

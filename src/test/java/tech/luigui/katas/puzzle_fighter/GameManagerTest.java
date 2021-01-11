@@ -63,7 +63,7 @@ public class GameManagerTest {
 
     private GameBoard testSetup(String rawPieces, String rawMovements) {
         Input input = new Input(rawPieces, rawMovements);
-        return gameBoardManager.createInitialBoard(input.getPieces());
+        return gameManager.initGameBoard(input.getPieces());
     }
 
     private void assertGameOutput(String expected, GameBoard gameBoard) {

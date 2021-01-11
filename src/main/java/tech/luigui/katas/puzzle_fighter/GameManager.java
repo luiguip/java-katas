@@ -5,15 +5,29 @@ import tech.luigui.katas.puzzle_fighter.model.GameBoard;
 import tech.luigui.katas.puzzle_fighter.model.GameBoardConstants;
 import tech.luigui.katas.puzzle_fighter.model.PieceEnum;
 
+import java.util.List;
+
 public final class GameManager {
 
   private final GameBoardConstants gameBoardConstants = new GameBoardConstants();
 	private final GameBoardManager gameBoardManager = new GameBoardManager();
+	private final PieceCoordinateManager pieceCoordinateManager = new PieceCoordinateManager();
+
+	public GameBoard initGameBoard(List<PieceEnum> pieceEnumList) {
+		PieceCoordinate pieceCoordinate = pieceCoordinateManager.initialPieceCoordinate();
+		return gameBoardManager.createInitialBoard(pieceEnumList, pieceCoordinate);
+	}
+
+	public GameBoard initTurn(GameBoard gameBoard, List<PieceEnum> pieceEnumList) {
+		PieceCoordinate pieceCoordinate = pieceCoordinateManager.initialPieceCoordinate();
+		return  gameBoardManager.initTurn(gameBoard, pieceEnumList, pieceCoordinate);
+	}
 
 	public GameBoard moveLeft(GameBoard gameBoard) {
 		GameBoard afterMoveGameBoard = new GameBoard(gameBoard);
 		if(hasEmptyPieceAtLeft(gameBoard)){
-			PieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate().left();
+			PieceCoordinate previousPieceCoordinate = gameBoard.getAlivePieceCoordinate();
+			PieceCoordinate alivePieceCoordinate = pieceCoordinateManager.left(previousPieceCoordinate);
 			afterMoveGameBoard =  gameBoardManager.update(gameBoard, alivePieceCoordinate);
 		}
 		return afterMoveGameBoard;
@@ -24,14 +38,15 @@ public final class GameManager {
 		if(alivePieceCoordinate.getX0() == 0 || alivePieceCoordinate.getX1() == 0) {
 			return false;
 		}
-		PieceCoordinate coordinateAtLeft = alivePieceCoordinate.left();
+		PieceCoordinate coordinateAtLeft = pieceCoordinateManager.left(alivePieceCoordinate);
 		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateAtLeft);
 		return isPieceEnumEmpty(pieceEnumArray);
 	}
 	public GameBoard moveRight(GameBoard gameBoard) {
 		GameBoard afterMoveGameBoard = new GameBoard(gameBoard);
 		if(hasEmptyPieceAtRight(gameBoard)){
-			PieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate().right();
+			PieceCoordinate previousPieceCoordinate = gameBoard.getAlivePieceCoordinate();
+			PieceCoordinate alivePieceCoordinate = pieceCoordinateManager.right(previousPieceCoordinate);
 			afterMoveGameBoard =  gameBoardManager.update(gameBoard, alivePieceCoordinate);
 		}
 		return afterMoveGameBoard;
@@ -43,7 +58,7 @@ public final class GameManager {
 				alivePieceCoordinate.getX1() == gameBoardConstants.getLastColumn()) {
 			return false;
 		}
-		PieceCoordinate coordinateAtRight = alivePieceCoordinate.left();
+		PieceCoordinate coordinateAtRight = pieceCoordinateManager.left(alivePieceCoordinate);
 		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateAtRight);
 		return isPieceEnumEmpty(pieceEnumArray);
 	}
@@ -51,7 +66,8 @@ public final class GameManager {
 	public GameBoard rotateCounterClockwise(GameBoard gameBoard) {
 		GameBoard afterMoveGameBoard = new GameBoard(gameBoard);
 		if(hasEmptyPieceAtCounterClockDirection(gameBoard)) {
-			PieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate().rotateCounterClockwise();
+			PieceCoordinate previousPieceCoordinate = gameBoard.getAlivePieceCoordinate();
+			PieceCoordinate alivePieceCoordinate = pieceCoordinateManager.rotateCounterClockwise(previousPieceCoordinate);
 			afterMoveGameBoard = gameBoardManager.update(gameBoard, alivePieceCoordinate);
 		}
 		return afterMoveGameBoard;
@@ -75,8 +91,9 @@ public final class GameManager {
 
 	public GameBoard rotateClockwise(GameBoard gameBoard) {
 		GameBoard afterMoveGameBoard = new GameBoard(gameBoard);
-		if(hasEmptyPieceAtCounterClockDirection(gameBoard)) {
-			PieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate().rotateClockwise();
+		if(hasEmptyPieceClockDirection(gameBoard)) {
+			PieceCoordinate previousPieceCoordinate = gameBoard.getAlivePieceCoordinate();
+			PieceCoordinate alivePieceCoordinate = pieceCoordinateManager.rotateClockwise(previousPieceCoordinate);
 			afterMoveGameBoard = gameBoardManager.update(gameBoard, alivePieceCoordinate);
 		}
 		return afterMoveGameBoard;
@@ -111,7 +128,7 @@ public final class GameManager {
 		if(alivePieceCoordinate.getY0() == 0 || alivePieceCoordinate.getY1() == 0) {
 			return false;
 		}
-		PieceCoordinate coordinateBelow = alivePieceCoordinate.down();
+		PieceCoordinate coordinateBelow = pieceCoordinateManager.down(alivePieceCoordinate);
 		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateBelow);
 		return isPieceEnumEmpty(pieceEnumArray);
 	}
@@ -122,7 +139,7 @@ public final class GameManager {
 			alivePieceCoordinate.getX1() == gameBoardConstants.getLastRow()) {
 			return false;
 		}
-		PieceCoordinate coordinateAtTop = alivePieceCoordinate.up();
+		PieceCoordinate coordinateAtTop = pieceCoordinateManager.up(alivePieceCoordinate);
 		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateAtTop);
 		return isPieceEnumEmpty(pieceEnumArray);
 	}
@@ -143,9 +160,9 @@ public final class GameManager {
 		return (pieceEnumArray[0] == PieceEnum.EMPTY || pieceEnumArray[1] == PieceEnum.EMPTY);
 	}
 
-	private GameBoard fall(GameBoard gameBoard) {
-		PieceCoordinate alivePieceCoordinate = gameBoard.getAlivePieceCoordinate().down();
+	public GameBoard fall(GameBoard gameBoard) {
+		PieceCoordinate previousPieceCoordinate = gameBoard.getAlivePieceCoordinate();
+		PieceCoordinate alivePieceCoordinate = pieceCoordinateManager.down(previousPieceCoordinate);
 		return gameBoardManager.update(gameBoard, alivePieceCoordinate);
 	}
-
 }

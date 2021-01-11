@@ -12,13 +12,16 @@ import java.util.stream.IntStream;
 public class GameBoardManager {
 
     private final GameBoardConstants gameBoardConstants = new GameBoardConstants();
+    int column = gameBoardConstants.getBlockFallColumn();
+    int row = gameBoardConstants.getLastRow();
 
-    public GameBoard createInitialBoard(List<PieceEnum> pieceEnumList) {
-        int column = gameBoardConstants.getBlockFallColumn();
-        int row = gameBoardConstants.getNumberOfRows() - 1;
-        PieceCoordinate alivePieceCoordinate = new PieceCoordinate();
+    public GameBoard createInitialBoard(List<PieceEnum> pieceEnumList, PieceCoordinate pieceCoordinate) {
         PieceEnum[][] pieceEnumMatrix = initiateInitialPieceEnumMatrix(pieceEnumList, column, row);
-        return new GameBoard(pieceEnumMatrix, pieceEnumList, alivePieceCoordinate);
+        return new GameBoard(pieceEnumMatrix, pieceEnumList, pieceCoordinate);
+    }
+
+    public GameBoard initTurn(GameBoard gameBoard, List<PieceEnum> pieceEnumList, PieceCoordinate pieceCoordinate) {
+       return update(gameBoard, pieceCoordinate);
     }
 
     public GameBoard update(GameBoard previousGameBoard, PieceCoordinate alivePieceCoordinate) {
