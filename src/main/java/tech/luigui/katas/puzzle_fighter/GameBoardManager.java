@@ -21,7 +21,14 @@ public class GameBoardManager {
     }
 
     public GameBoard initTurn(GameBoard gameBoard, List<PieceEnum> pieceEnumList, PieceCoordinate pieceCoordinate) {
-       return update(gameBoard, pieceCoordinate);
+       return initUpdate(gameBoard, pieceEnumList, pieceCoordinate);
+    }
+
+    private GameBoard initUpdate(GameBoard previousGameBoard, List<PieceEnum> pieceEnumList, PieceCoordinate alivePieceCoordinate) {
+        PieceEnum[][] pieceEnumMatrix = updatePieceEnumMatrix(previousGameBoard.getPieceEnumMatrix(),
+          pieceEnumList,
+          alivePieceCoordinate);
+        return new GameBoard(pieceEnumMatrix, pieceEnumList, alivePieceCoordinate);
     }
 
     public GameBoard update(GameBoard previousGameBoard, PieceCoordinate alivePieceCoordinate) {
