@@ -7,13 +7,23 @@ import tech.luigui.katas.puzzle_fighter.model.GameBoard;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
-  private final String[][] input1 = {{"YY","BALLL"},{"RR","AALL"}};
-  private final String expected1 =
-    "      \n      \n      \n      \n      \n      \n      \n      \n      \n      \nYR    \nYR    ";
 
   @Test
   void gameTestInput1() {
-    GameBoard gameBoard = new Game(input1).playGame();
-    assertEquals(expected1, new OutputFacade(gameBoard).getGameOutput());
+    final String[][] input = {{"YY","BALLL"},{"RR","AALL"}};
+    final String expected =
+      "      \n      \n      \n      \n      \n      \n      \n      \n      \n      \nYR    \nYR    ";
+    GameBoard gameBoard = new Game(input).playGame();
+    assertEquals(expected, new OutputFacade(gameBoard).getGameOutput());
   }
+
+  @Test
+  void gameTestInput2() {
+    final String[][] input = {{"YY","BALLL"},{"RR","AALL"}, {"BB", "BR"}};
+    final String expected =
+      "      \n      \n      \n      \n      \n      \n      \n      \n      \n      \nYR    \nYR BB ";
+    GameBoard gameBoard = new Game(input).playGame();
+    assertEquals(expected, new OutputFacade(gameBoard).getGameOutput());
+  }
+
 }
