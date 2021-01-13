@@ -26,4 +26,12 @@ public class GameTest {
     assertEquals(expected, new OutputFacade(gameBoard).getGameOutput());
   }
 
+  @Test
+  void gameTestInput3() {
+    final String[][] input = {{"YY","BALLL"},{"RR","AALL"}, {"BB", "BR"}, {"GG", "BLL"}};
+    final String expected =
+      "      \n      \n      \n      \n      \n      \n      \n      \n      \nGG    \nYR    \nYR BB ";
+    GameBoard gameBoard = new Game(input).playGame();
+    assertEquals(expected, new OutputFacade(gameBoard).getGameOutput());
+  }
 }
