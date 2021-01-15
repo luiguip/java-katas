@@ -34,4 +34,13 @@ public class GameTest {
     GameBoard gameBoard = new Game(input).playGame();
     assertEquals(expected, new OutputFacade(gameBoard).getGameOutput());
   }
+
+  @Test
+  void gameTestInput4OnePieceFall() {
+    final String[][] input = {{"YY","BALLL"},{"RR","AALL"}, {"BB", "BR"}, {"GG", "BLL"}, {"YY", "BL"}};
+    final String expected =
+      "      \n      \n      \n      \n      \n      \n      \n      \n Y    \nGG    \nYR    \nYRYBB ";
+    GameBoard gameBoard = new Game(input).playGame();
+    assertEquals(expected, new OutputFacade(gameBoard).getGameOutput());
+  }
 }

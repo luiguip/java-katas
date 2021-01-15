@@ -1,6 +1,6 @@
 package tech.luigui.katas.puzzle_fighter;
 
-import tech.luigui.katas.puzzle_fighter.model.PieceCoordinate;
+import tech.luigui.katas.puzzle_fighter.model.AlivePieceCoordinate;
 import tech.luigui.katas.puzzle_fighter.model.GameBoard;
 import tech.luigui.katas.puzzle_fighter.model.GameBoardConstants;
 import tech.luigui.katas.puzzle_fighter.model.PieceEnum;
@@ -15,23 +15,23 @@ public class GameBoardManager {
     int column = gameBoardConstants.getBlockFallColumn();
     int row = gameBoardConstants.getLastRow();
 
-    public GameBoard createInitialBoard(List<PieceEnum> pieceEnumList, PieceCoordinate pieceCoordinate) {
+    public GameBoard createInitialBoard(List<PieceEnum> pieceEnumList, AlivePieceCoordinate alivePieceCoordinate) {
         PieceEnum[][] pieceEnumMatrix = initiateInitialPieceEnumMatrix(pieceEnumList, column, row);
-        return new GameBoard(pieceEnumMatrix, pieceEnumList, pieceCoordinate);
+        return new GameBoard(pieceEnumMatrix, pieceEnumList, alivePieceCoordinate);
     }
 
-    public GameBoard initTurn(GameBoard gameBoard, List<PieceEnum> pieceEnumList, PieceCoordinate pieceCoordinate) {
-       return initUpdate(gameBoard, pieceEnumList, pieceCoordinate);
+    public GameBoard initTurn(GameBoard gameBoard, List<PieceEnum> pieceEnumList, AlivePieceCoordinate alivePieceCoordinate) {
+       return initUpdate(gameBoard, pieceEnumList, alivePieceCoordinate);
     }
 
-    private GameBoard initUpdate(GameBoard previousGameBoard, List<PieceEnum> pieceEnumList, PieceCoordinate alivePieceCoordinate) {
+    private GameBoard initUpdate(GameBoard previousGameBoard, List<PieceEnum> pieceEnumList, AlivePieceCoordinate alivePieceCoordinate) {
         PieceEnum[][] pieceEnumMatrix = updatePieceEnumMatrix(previousGameBoard.getPieceEnumMatrix(),
           pieceEnumList,
           alivePieceCoordinate);
         return new GameBoard(pieceEnumMatrix, pieceEnumList, alivePieceCoordinate);
     }
 
-    public GameBoard update(GameBoard previousGameBoard, PieceCoordinate alivePieceCoordinate) {
+    public GameBoard update(GameBoard previousGameBoard, AlivePieceCoordinate alivePieceCoordinate) {
         PieceEnum[][] pieceEnumMatrix = updatePieceEnumMatrix(previousGameBoard.getPieceEnumMatrix(),
                 previousGameBoard.getAlivePieceEnumList(),
                 previousGameBoard.getAlivePieceCoordinate(),
@@ -60,20 +60,20 @@ public class GameBoardManager {
 
     private PieceEnum[][] updatePieceEnumMatrix(PieceEnum[][] pieceEnumMatrix,
                                                 List<PieceEnum> pieceEnumList,
-                                                PieceCoordinate previousAlivePieceCoordinate,
-                                                PieceCoordinate alivePieceCoordinate) {
-        PieceEnum[][] removedPreviousAlivePiece = removePreviousAlivePiece(pieceEnumMatrix, previousAlivePieceCoordinate);
+                                                AlivePieceCoordinate previousAliveAlivePieceCoordinate,
+                                                AlivePieceCoordinate alivePieceCoordinate) {
+        PieceEnum[][] removedPreviousAlivePiece = removePreviousAlivePiece(pieceEnumMatrix, previousAliveAlivePieceCoordinate);
         return updatePieceEnumMatrix(removedPreviousAlivePiece, pieceEnumList, alivePieceCoordinate);
     }
 
     private PieceEnum[][] removePreviousAlivePiece(PieceEnum[][] pieceEnumMatrix,
-                                                   PieceCoordinate previousAlivePieceCoordinate) {
+                                                   AlivePieceCoordinate previousAliveAlivePieceCoordinate) {
         List<PieceEnum> pieceEnumList = emptyPieceEnumEntry();
-        return updatePieceEnumMatrix(pieceEnumMatrix, pieceEnumList, previousAlivePieceCoordinate);
+        return updatePieceEnumMatrix(pieceEnumMatrix, pieceEnumList, previousAliveAlivePieceCoordinate);
     }
 
     private PieceEnum[][] updatePieceEnumMatrix(PieceEnum[][] pieceEnumMatrix, List<PieceEnum> pieceEnumList,
-                                                PieceCoordinate alivePieceCoordinate) {
+                                                AlivePieceCoordinate alivePieceCoordinate) {
         pieceEnumMatrix[alivePieceCoordinate.getY0()][alivePieceCoordinate.getX0()] = pieceEnumList.get(0);
         pieceEnumMatrix[alivePieceCoordinate.getY1()][alivePieceCoordinate.getX1()] = pieceEnumList.get(1);
         return pieceEnumMatrix;

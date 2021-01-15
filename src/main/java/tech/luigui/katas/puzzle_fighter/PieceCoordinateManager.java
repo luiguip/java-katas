@@ -1,117 +1,117 @@
 package tech.luigui.katas.puzzle_fighter;
 
 import tech.luigui.katas.puzzle_fighter.model.GameBoardConstants;
-import tech.luigui.katas.puzzle_fighter.model.PieceCoordinate;
+import tech.luigui.katas.puzzle_fighter.model.AlivePieceCoordinate;
 import tech.luigui.katas.puzzle_fighter.model.PositionEnum;
 
 public class PieceCoordinateManager {
 
   private final GameBoardConstants gameBoardConstants = new GameBoardConstants();
 
-  public PieceCoordinate down(PieceCoordinate pieceCoordinate) {
-    return pieceCoordinate.down();
+  public AlivePieceCoordinate down(AlivePieceCoordinate alivePieceCoordinate) {
+    return alivePieceCoordinate.down();
   }
 
-  public PieceCoordinate left(PieceCoordinate pieceCoordinate) {
-    return pieceCoordinate.left();
+  public AlivePieceCoordinate left(AlivePieceCoordinate alivePieceCoordinate) {
+    return alivePieceCoordinate.left();
   }
 
-  public  PieceCoordinate up(PieceCoordinate pieceCoordinate) {
-    return pieceCoordinate.up();
+  public AlivePieceCoordinate up(AlivePieceCoordinate alivePieceCoordinate) {
+    return alivePieceCoordinate.up();
   }
 
-  public PieceCoordinate right(PieceCoordinate pieceCoordinate) {
-    return pieceCoordinate.right();
+  public AlivePieceCoordinate right(AlivePieceCoordinate alivePieceCoordinate) {
+    return alivePieceCoordinate.right();
   }
 
-  public PieceCoordinate initialPieceCoordinate() {
+  public AlivePieceCoordinate initialPieceCoordinate() {
     PositionEnum positionEnum = PositionEnum.UP;
     int x0 = gameBoardConstants.getBlockFallColumn();
     int y0 = gameBoardConstants.getLastRow();
     int y1 = y0-1;
-    return new PieceCoordinate(x0, x0, y0, y1, positionEnum);
+    return new AlivePieceCoordinate(x0, x0, y0, y1, positionEnum);
   }
-  public PieceCoordinate rotateCounterClockwise(PieceCoordinate pieceCoordinate) {
-    if(isAtLeftAndHorizontallyAligned(pieceCoordinate)) {
-      return rightDown(pieceCoordinate, PositionEnum.DOWN);
-    } else if(isBelowAndVerticallyAligned(pieceCoordinate)) {
-      return rightUp(pieceCoordinate, PositionEnum.RIGHT);
-    } else if(isAtRightAndHorizontallyAligned(pieceCoordinate)) {
-      return leftUp(pieceCoordinate, PositionEnum.UP);
-    } else if(isOnAndVerticaallyAligned(pieceCoordinate)) {
-      return leftDown(pieceCoordinate, PositionEnum.LEFT);
+  public AlivePieceCoordinate rotateCounterClockwise(AlivePieceCoordinate alivePieceCoordinate) {
+    if(isAtLeftAndHorizontallyAligned(alivePieceCoordinate)) {
+      return rightDown(alivePieceCoordinate, PositionEnum.DOWN);
+    } else if(isBelowAndVerticallyAligned(alivePieceCoordinate)) {
+      return rightUp(alivePieceCoordinate, PositionEnum.RIGHT);
+    } else if(isAtRightAndHorizontallyAligned(alivePieceCoordinate)) {
+      return leftUp(alivePieceCoordinate, PositionEnum.UP);
+    } else if(isOnAndVerticaallyAligned(alivePieceCoordinate)) {
+      return leftDown(alivePieceCoordinate, PositionEnum.LEFT);
     } else {
       throw new IllegalStateException("Invalid Piece locations");
     }
   }
 
-  public PieceCoordinate rotateClockwise(PieceCoordinate pieceCoordinate) {
-    if(isAtLeftAndHorizontallyAligned(pieceCoordinate)) {
-      return rightUp(pieceCoordinate, PositionEnum.UP);
-    } else if(isBelowAndVerticallyAligned(pieceCoordinate)) {
-      return leftUp(pieceCoordinate, PositionEnum.LEFT);
-    } else if(isAtRightAndHorizontallyAligned(pieceCoordinate)) {
-      return leftDown(pieceCoordinate, PositionEnum.DOWN);
-    } else if(isOnAndVerticaallyAligned(pieceCoordinate)) {
-      return rightDown(pieceCoordinate, PositionEnum.RIGHT);
+  public AlivePieceCoordinate rotateClockwise(AlivePieceCoordinate alivePieceCoordinate) {
+    if(isAtLeftAndHorizontallyAligned(alivePieceCoordinate)) {
+      return rightUp(alivePieceCoordinate, PositionEnum.UP);
+    } else if(isBelowAndVerticallyAligned(alivePieceCoordinate)) {
+      return leftUp(alivePieceCoordinate, PositionEnum.LEFT);
+    } else if(isAtRightAndHorizontallyAligned(alivePieceCoordinate)) {
+      return leftDown(alivePieceCoordinate, PositionEnum.DOWN);
+    } else if(isOnAndVerticaallyAligned(alivePieceCoordinate)) {
+      return rightDown(alivePieceCoordinate, PositionEnum.RIGHT);
     } else {
       throw new IllegalStateException("Invalid Piece locations");
     }
   }
 
-  private boolean isAtLeftAndHorizontallyAligned(PieceCoordinate pieceCoordinate) {
-    return isAtLeft(pieceCoordinate) && isHorizontallyAligned(pieceCoordinate);
+  private boolean isAtLeftAndHorizontallyAligned(AlivePieceCoordinate alivePieceCoordinate) {
+    return isAtLeft(alivePieceCoordinate) && isHorizontallyAligned(alivePieceCoordinate);
   }
 
-  private boolean isAtRightAndHorizontallyAligned(PieceCoordinate pieceCoordinate) {
-    return isAtRight(pieceCoordinate) && isHorizontallyAligned(pieceCoordinate);
+  private boolean isAtRightAndHorizontallyAligned(AlivePieceCoordinate alivePieceCoordinate) {
+    return isAtRight(alivePieceCoordinate) && isHorizontallyAligned(alivePieceCoordinate);
   }
 
-  private boolean isBelowAndVerticallyAligned(PieceCoordinate pieceCoordinate) {
-    return isBelow(pieceCoordinate) && isVerticallyAligned(pieceCoordinate);
+  private boolean isBelowAndVerticallyAligned(AlivePieceCoordinate alivePieceCoordinate) {
+    return isBelow(alivePieceCoordinate) && isVerticallyAligned(alivePieceCoordinate);
   }
 
-  private boolean isOnAndVerticaallyAligned(PieceCoordinate pieceCoordinate) {
-    return isOn(pieceCoordinate) && isVerticallyAligned(pieceCoordinate);
+  private boolean isOnAndVerticaallyAligned(AlivePieceCoordinate alivePieceCoordinate) {
+    return isOn(alivePieceCoordinate) && isVerticallyAligned(alivePieceCoordinate);
   }
 
-  private boolean isVerticallyAligned(PieceCoordinate pieceCoordinate) {
-    return pieceCoordinate.getX0() == pieceCoordinate.getX1();
+  private boolean isVerticallyAligned(AlivePieceCoordinate alivePieceCoordinate) {
+    return alivePieceCoordinate.getX0() == alivePieceCoordinate.getX1();
   }
 
-  private boolean isHorizontallyAligned(PieceCoordinate pieceCoordinate) {
-    return pieceCoordinate.getY0() == pieceCoordinate.getY1();
+  private boolean isHorizontallyAligned(AlivePieceCoordinate alivePieceCoordinate) {
+    return alivePieceCoordinate.getY0() == alivePieceCoordinate.getY1();
   }
 
-  private boolean isAtLeft(PieceCoordinate pieceCoordinate) {
-    return pieceCoordinate.getX0() > pieceCoordinate.getX1();
+  private boolean isAtLeft(AlivePieceCoordinate alivePieceCoordinate) {
+    return alivePieceCoordinate.getX0() > alivePieceCoordinate.getX1();
   }
 
-  private  boolean isAtRight(PieceCoordinate pieceCoordinate) {
-    return pieceCoordinate.getX0() < pieceCoordinate.getX1();
+  private  boolean isAtRight(AlivePieceCoordinate alivePieceCoordinate) {
+    return alivePieceCoordinate.getX0() < alivePieceCoordinate.getX1();
   }
 
-  private boolean isBelow(PieceCoordinate pieceCoordinate) {
-    return pieceCoordinate.getY0() > pieceCoordinate.getY1();
+  private boolean isBelow(AlivePieceCoordinate alivePieceCoordinate) {
+    return alivePieceCoordinate.getY0() > alivePieceCoordinate.getY1();
   }
 
-  private boolean isOn(PieceCoordinate pieceCoordinate) {
-    return pieceCoordinate.getY0() < pieceCoordinate.getY1();
+  private boolean isOn(AlivePieceCoordinate alivePieceCoordinate) {
+    return alivePieceCoordinate.getY0() < alivePieceCoordinate.getY1();
   }
 
-  private PieceCoordinate leftUp(PieceCoordinate pieceCoordinate, PositionEnum positionEnum) {
-    return pieceCoordinate.rotate(-1, 1, positionEnum);
+  private AlivePieceCoordinate leftUp(AlivePieceCoordinate alivePieceCoordinate, PositionEnum positionEnum) {
+    return alivePieceCoordinate.rotate(-1, 1, positionEnum);
   }
 
-  private PieceCoordinate rightUp(PieceCoordinate pieceCoordinate, PositionEnum positionEnum) {
-    return pieceCoordinate.rotate( 1, 1,positionEnum);
+  private AlivePieceCoordinate rightUp(AlivePieceCoordinate alivePieceCoordinate, PositionEnum positionEnum) {
+    return alivePieceCoordinate.rotate( 1, 1,positionEnum);
   }
 
-  private PieceCoordinate leftDown(PieceCoordinate pieceCoordinate, PositionEnum positionEnum) {
-    return pieceCoordinate.rotate(-1,-1, positionEnum);
+  private AlivePieceCoordinate leftDown(AlivePieceCoordinate alivePieceCoordinate, PositionEnum positionEnum) {
+    return alivePieceCoordinate.rotate(-1,-1, positionEnum);
   }
 
-  private PieceCoordinate rightDown(PieceCoordinate pieceCoordinate, PositionEnum positionEnum) {
-    return pieceCoordinate.rotate(1, -1, positionEnum);
+  private AlivePieceCoordinate rightDown(AlivePieceCoordinate alivePieceCoordinate, PositionEnum positionEnum) {
+    return alivePieceCoordinate.rotate(1, -1, positionEnum);
   }
 }

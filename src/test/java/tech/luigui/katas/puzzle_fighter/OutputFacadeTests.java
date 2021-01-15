@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import tech.luigui.katas.puzzle_fighter.model.PieceCoordinate;
 import tech.luigui.katas.puzzle_fighter.model.GameBoard;
 import tech.luigui.katas.puzzle_fighter.model.Input;
 
