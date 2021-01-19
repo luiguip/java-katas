@@ -18,9 +18,9 @@ public class GameManagerTest {
     private final String ONE_MOVE_RIGHT =
             "    R \n    B \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
     private final String ONE_COUNTERCLOCK_ROTATION =
-            "   RB \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
+            "      \n  RB  \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
     private final String ONE_CLOCK_ROTATION =
-      "  BR  \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
+            "      \n   BR \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      ";
 
     @Test
     void noMovesLeftTest() {

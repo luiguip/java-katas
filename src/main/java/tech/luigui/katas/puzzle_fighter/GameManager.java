@@ -1,10 +1,12 @@
 package tech.luigui.katas.puzzle_fighter;
 
 import tech.luigui.katas.puzzle_fighter.model.AlivePieceCoordinate;
+import tech.luigui.katas.puzzle_fighter.model.Coordinate;
 import tech.luigui.katas.puzzle_fighter.model.GameBoard;
 import tech.luigui.katas.puzzle_fighter.model.GameBoardConstants;
 import tech.luigui.katas.puzzle_fighter.model.PieceEnum;
 
+import java.util.Arrays;
 import java.util.List;
 
 public final class GameManager {
@@ -12,6 +14,7 @@ public final class GameManager {
   private final GameBoardConstants gameBoardConstants = new GameBoardConstants();
 	private final GameBoardManager gameBoardManager = new GameBoardManager();
 	private final PieceCoordinateManager pieceCoordinateManager = new PieceCoordinateManager();
+	private final CoordinateManager coordinateManager = new CoordinateManager();
 
 	public GameBoard initGameBoard(List<PieceEnum> pieceEnumList) {
 		AlivePieceCoordinate alivePieceCoordinate = pieceCoordinateManager.initialPieceCoordinate();
@@ -38,7 +41,7 @@ public final class GameManager {
 		if(alivePieceCoordinate.getX0() == 0 || alivePieceCoordinate.getX1() == 0) {
 			return false;
 		}
-		AlivePieceCoordinate coordinateAtLeft = pieceCoordinateManager.left(alivePieceCoordinate);
+		Coordinate[] coordinateAtLeft = coordinateManager.left(alivePieceCoordinate);
 		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateAtLeft);
 		return isPieceEnumEmpty(pieceEnumArray);
 	}
@@ -58,7 +61,7 @@ public final class GameManager {
 				alivePieceCoordinate.getX1() == gameBoardConstants.getLastColumn()) {
 			return false;
 		}
-		AlivePieceCoordinate coordinateAtRight = pieceCoordinateManager.left(alivePieceCoordinate);
+		Coordinate[] coordinateAtRight = coordinateManager.right(alivePieceCoordinate);
 		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateAtRight);
 		return isPieceEnumEmpty(pieceEnumArray);
 	}
@@ -128,9 +131,18 @@ public final class GameManager {
 		if(alivePieceCoordinate.getY0() == 0 || alivePieceCoordinate.getY1() == 0) {
 			return false;
 		}
-		AlivePieceCoordinate coordinateBelow = pieceCoordinateManager.down(alivePieceCoordinate);
-		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateBelow);
+		Coordinate[] coordinateArrayBelow = coordinateManager.down(alivePieceCoordinate);
+		PieceEnum[] pieceEnumArray = getPieceEnumFromPieceMatrix(gameBoard, coordinateArrayBelow);
 		return isPieceEnumEmpty(pieceEnumArray);
+	}
+
+	private PieceEnum[] getPieceEnumFromPieceMatrix(GameBoard gameBoard, Coordinate[] coordinateArrayBelow) {
+		PieceEnum[][] pieceEnumMatrix = gameBoard.getPieceEnumMatrix();
+		PieceEnum[] pieceEnumArray = new PieceEnum[coordinateArrayBelow.length];
+		for(int i=0 ; i<pieceEnumArray.length ; i++) {
+			pieceEnumArray[i] = pieceEnumMatrix[coordinateArrayBelow[i].getY()][coordinateArrayBelow[i].getX()];
+		}
+		return pieceEnumArray;
 	}
 
 	private boolean hasEmptyPieceAtTop(GameBoard gameBoard) {
@@ -156,8 +168,16 @@ public final class GameManager {
 		return pieceEnumArray;
 	}
 
+	private boolean isOneOfPieceEnumEmpty(PieceEnum[] pieceEnumArray) {
+		return Arrays.stream(pieceEnumArray)
+			.map(pieceEnum -> pieceEnum == PieceEnum.EMPTY)
+			.reduce(false, (a, b) -> a || b);
+	}
+
 	private boolean isPieceEnumEmpty(PieceEnum[] pieceEnumArray) {
-		return (pieceEnumArray[0] == PieceEnum.EMPTY && pieceEnumArray[1] == PieceEnum.EMPTY);
+    return Arrays.stream(pieceEnumArray)
+			.map(pieceEnum -> pieceEnum == PieceEnum.EMPTY)
+			.reduce(true, (a,b) -> a && b);
 	}
 
 	public GameBoard fall(GameBoard gameBoard) {

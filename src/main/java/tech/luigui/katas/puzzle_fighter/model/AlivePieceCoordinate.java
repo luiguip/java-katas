@@ -41,7 +41,7 @@ public class AlivePieceCoordinate {
 	}
 
 	public AlivePieceCoordinate rotate(int horizontalDiff, int verticalDiff, PositionEnum positionEnum) {
-		return new AlivePieceCoordinate(x0, this.x1+ horizontalDiff, y0, this.y1 + verticalDiff, positionEnum);
+		return new AlivePieceCoordinate(x0 + horizontalDiff, x1, y0 + verticalDiff, y1, positionEnum);
 	}
 
 	public AlivePieceCoordinate down() {

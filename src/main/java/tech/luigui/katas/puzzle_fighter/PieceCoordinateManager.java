@@ -31,31 +31,34 @@ public class PieceCoordinateManager {
     int y1 = y0-1;
     return new AlivePieceCoordinate(x0, x0, y0, y1, positionEnum);
   }
+
   public AlivePieceCoordinate rotateCounterClockwise(AlivePieceCoordinate alivePieceCoordinate) {
-    if(isAtLeftAndHorizontallyAligned(alivePieceCoordinate)) {
-      return rightDown(alivePieceCoordinate, PositionEnum.DOWN);
-    } else if(isBelowAndVerticallyAligned(alivePieceCoordinate)) {
-      return rightUp(alivePieceCoordinate, PositionEnum.RIGHT);
-    } else if(isAtRightAndHorizontallyAligned(alivePieceCoordinate)) {
-      return leftUp(alivePieceCoordinate, PositionEnum.UP);
-    } else if(isOnAndVerticaallyAligned(alivePieceCoordinate)) {
-      return leftDown(alivePieceCoordinate, PositionEnum.LEFT);
-    } else {
-      throw new IllegalStateException("Invalid Piece locations");
+    switch(alivePieceCoordinate.getPositionEnum()) {
+      case UP:
+        return leftDown(alivePieceCoordinate, PositionEnum.LEFT);
+      case LEFT:
+        return rightDown(alivePieceCoordinate, PositionEnum.DOWN);
+      case DOWN:
+        return rightUp(alivePieceCoordinate, PositionEnum.RIGHT);
+      case RIGHT:
+        return leftUp(alivePieceCoordinate, PositionEnum.UP);
+      default:
+        throw new IllegalStateException("Invalid position enum");
     }
   }
 
   public AlivePieceCoordinate rotateClockwise(AlivePieceCoordinate alivePieceCoordinate) {
-    if(isAtLeftAndHorizontallyAligned(alivePieceCoordinate)) {
-      return rightUp(alivePieceCoordinate, PositionEnum.UP);
-    } else if(isBelowAndVerticallyAligned(alivePieceCoordinate)) {
-      return leftUp(alivePieceCoordinate, PositionEnum.LEFT);
-    } else if(isAtRightAndHorizontallyAligned(alivePieceCoordinate)) {
-      return leftDown(alivePieceCoordinate, PositionEnum.DOWN);
-    } else if(isOnAndVerticaallyAligned(alivePieceCoordinate)) {
-      return rightDown(alivePieceCoordinate, PositionEnum.RIGHT);
-    } else {
-      throw new IllegalStateException("Invalid Piece locations");
+    switch(alivePieceCoordinate.getPositionEnum()) {
+      case UP:
+        return rightDown(alivePieceCoordinate, PositionEnum.RIGHT);
+      case LEFT:
+        return rightUp(alivePieceCoordinate, PositionEnum.UP);
+      case DOWN:
+        return leftUp(alivePieceCoordinate, PositionEnum.LEFT);
+      case RIGHT:
+        return leftDown(alivePieceCoordinate, PositionEnum.DOWN);
+      default:
+        throw new IllegalStateException("Invalid position enum");
     }
   }
 
