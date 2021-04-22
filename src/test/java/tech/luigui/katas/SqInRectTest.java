@@ -9,11 +9,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SqInRectTest {
   private SqInRect sqInRect = new SqInRect();
+  List<Integer> expectedSquares = Arrays.asList(3,2,1,1);
 
   @Test
   void solveTest(){
-    List<Integer> expected = Arrays.asList(3,2,1,1);
-    assertEquals(expected, sqInRect.solve(5,3));
+    assertEquals(expectedSquares, sqInRect.solve(5,3));
     assertNull(sqInRect.solve(5,5));
+  }
+
+  @Test
+  void calculateSquaresTest() {
+    assertEquals(expectedSquares, sqInRect.calculateSquares(5, 3));
   }
 }
